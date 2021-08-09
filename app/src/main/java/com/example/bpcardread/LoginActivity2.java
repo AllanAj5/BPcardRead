@@ -57,6 +57,7 @@ public class LoginActivity2 extends AppCompatActivity {
         //dbClass.getDao().getAllData();
         int valid_login =  dbClass.daoAccount().getaccountTableData(user_validate,upass_validate);
 
+
         if(valid_login>0){
             //1. login and save session
             User user = new User(user_validate,upass_validate);

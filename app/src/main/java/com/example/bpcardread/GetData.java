@@ -1,6 +1,8 @@
 package com.example.bpcardread;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -44,8 +46,19 @@ public class GetData extends AppCompatActivity {
         //DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
         //recyclerView.addItemDecoration(dividerItemDecoration);
 
-        detailsListAdapter = new DetailsListAdapter(this);
+        //detailsListAdapter = new DetailsListAdapter(this)
+        //
+        detailsListAdapter = new DetailsListAdapter(this, new DetailsListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(UserModel item) {
+                String db_show = "Name : "+item.name.toString()+"\n"+"DOB : "+item.dob.toString()+"\n"+"Sex : "+item.sex.toString()+"\n"+"ID : "+item.idNumber.toString()+"\n"+"Address : "+item.address.toString()+"\n"+"Created by : "+item.createdUser.toString()+"\n"+"Time : "+item.timestmp_created.toString()+"\n";
+                Toast.makeText(getApplicationContext(),db_show,Toast.LENGTH_LONG).show();
+            }
+        });
+        //
         recyclerView.setAdapter(detailsListAdapter);
+
+
     }
 
     private void getData() {
@@ -59,6 +72,13 @@ public class GetData extends AppCompatActivity {
     }
 
     public void export_CSV(View view) {
+
+        if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},101);
+        }
+
+
 
             DBHelper dbhelper = new DBHelper(getApplicationContext(),"DATABASE",null,2);
             File exportDir = new File(Environment.getExternalStorageDirectory(), "");
@@ -83,14 +103,15 @@ public class GetData extends AppCompatActivity {
                 }
                 csvWrite.close();
                 curCSV.close();
+                Toast.makeText(getApplicationContext(),"File Saved to \n \\BPReader_Aadhar_DATA.csv",Toast.LENGTH_LONG).show();
             }
             catch(Exception sqlEx)
             {
                 Toast.makeText(getApplicationContext(),"Unable to Export Data \n\n"+sqlEx.getMessage(),Toast.LENGTH_LONG).show();
             }
-            finally {
-                Toast.makeText(getApplicationContext(),"Done.",Toast.LENGTH_SHORT).show();
-            }
+
+
+            
 
 
     }

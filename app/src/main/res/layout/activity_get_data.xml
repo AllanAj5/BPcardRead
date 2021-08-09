@@ -58,14 +58,14 @@
                 android:layout_weight="1"
                 android:onClick="export_CSV"
                 android:text="Export CSV"></Button>
-            <Button
+         <!--   <Button
                 android:id="@+id/exp_json"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/exp_csv"
                 android:layout_weight="1"
                 android:onClick="export_JSON"
-                android:text="Export JSON"></Button>
+                android:text="Export JSON"></Button> -->
         </LinearLayout>
     </RelativeLayout>
     

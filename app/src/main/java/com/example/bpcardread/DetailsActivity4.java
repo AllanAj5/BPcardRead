@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -13,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -24,12 +24,15 @@ import com.example.bpcardread.AddOnFiles.SessionManagement;
 import com.example.bpcardread.AddOnFiles.str_Similarity_Check;
 import com.example.bpcardread.EntityClass.UserModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+//import android.icu.text.SimpleDateFormat;
 
 public class DetailsActivity4 extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private  String TAG=this.getClass().getSimpleName();
@@ -50,7 +53,9 @@ public class DetailsActivity4 extends AppCompatActivity implements PopupMenu.OnM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details4);
+        setContentView(R.layout.activity_details44);
+
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         editText_Name = findViewById(R.id.editText_Name);
         editText_Date = findViewById(R.id.editText_Date);
@@ -62,7 +67,7 @@ public class DetailsActivity4 extends AppCompatActivity implements PopupMenu.OnM
 
 
 
-        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         Intent intent_get = getIntent();
         Bundle args = intent_get.getBundleExtra("key1");
@@ -345,7 +350,7 @@ public class DetailsActivity4 extends AppCompatActivity implements PopupMenu.OnM
         ClipData clip = ClipData.newPlainText("url", copyText);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(getApplicationContext(),full,Toast.LENGTH_SHORT).show();
-        Toast toast = Toast.makeText(getApplicationContext(), "Text copied", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(), "Text copied\nYou can fetch required data by pasting this anywhere", Toast.LENGTH_LONG);
         toast.show();
         data.setText("");
         data.setVisibility(View.INVISIBLE);

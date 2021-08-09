@@ -35,7 +35,7 @@ public class signUpActivity extends AppCompatActivity {
 
         try{
             dbClass.daoAccount().insertAccount(model);
-            Toast.makeText(this,"Creating Account...",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Creating Account...",Toast.LENGTH_SHORT).show();
         }
         catch (Exception e)
         {
